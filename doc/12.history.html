@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      div{
+        padding:10px
+      }
+    </style>
+    <title>React App</title>
+  </head>
+  <body>
+  
+    <div id="root"></div>
+      
+  <script>
+    let root = document.getElementById("root");
+    
+    setTimeout(()=>{
+      window.history.pushState({page:1},'page1',"/page1");
+    },1000)
+
+    setTimeout(()=>{
+      window.history.pushState({page2:2},'page2',"/page2");
+    },2000)
+    setTimeout(()=>{
+      //pushState方法不会触发事件
+      window.history.pushState({page3:3},'page3',"/page3");
+    },3000)
+
+    setTimeout(()=>{
+      window.history.go(-1)
+    },4000)
+
+    window.onpushstate = function(state,title,url){
+      root.innerHTML = url
+    }
+
+    !(function(history){
+        let pushState = history.pushState;
+        //重写 window.history.pushState方法，执行前先执行自己写的 onpushstate方法
+        history.pushState = function(state,title,url){
+           if(typeof window.onpushstate === "function"){
+             window.onpushstate(state,title,url)
+           }
+           pushState.call(history,state,title,url)
+        }
+       
+
+    })(window.history)
+    window.onpopstate = function(event){
+        let obj = {
+          type:event.type,
+          state:event.state,
+          path:window.locationbar.pathname
+        }
+        root.innerHTML = window.location.pathname
+        console.log("event",event);
+    }
+
+  
+  </script>    
+  </body>
+</html>

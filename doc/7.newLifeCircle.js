@@ -33,7 +33,7 @@ class ChildCounter extends React.Component{
     //先获取DOM更新前的快照
     getSnapshotBeforeUpdate(){
         //scrollHeight 获取容器的内容高度
-        // alert(1)
+       
 
         console.log("getSnapshopBeforeUpdate")
        

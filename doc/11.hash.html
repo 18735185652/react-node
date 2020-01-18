@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      div{
+        padding:10px
+      }
+    </style>
+    <title>React App</title>
+  </head>
+  <body>
+  
+    <div id="root"></div>
+    <a href="#/a">去/a<a/>  
+    <a href="#/b">去/b<a/>
+      
+  <script>
+    let root = document.getElementById("root");
+    window.addEventListener("hashchange",function(event){
+      console.log(window.location)
+      root.innerHTML = window.location.hash;
+    })
+  
+  </script>    
+  </body>
+</html>
